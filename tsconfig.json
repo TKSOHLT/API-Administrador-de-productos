@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist", //Esto saca los compilados en la carpeta de dist
+        "rootDir": "./src", // Esto indica la ocmpilacion de los archivos de src
+        "lib": ["ESNext"], //Versión de javascript a compilar
+        "strict": false, //Permitir "anys" (false = permitir anys)?
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "experimentalDecorators": true, // Habilitar los decoradores
+        "emitDecoratorMetadata": true
+    },
+    "include": ["src/**/*.ts"]
+}
