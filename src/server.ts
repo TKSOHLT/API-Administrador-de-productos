@@ -14,9 +14,13 @@ async function connectDB() {
     console.log(colors.red.bold("Hubo un error al conectar a la BD"));
   }
 }
-
 connectDB();
+
+//Instancia de express
 const server = express();
+
+//Leer datos de formularios
+server.use(express.json()) //Habilita la lectura de json en los req.body de los endpoints
 
 //Se pueden tener multiples archivos de routers con sus respectivos prefijos de endpoints
 server.use("/api/products", router);

@@ -3,6 +3,9 @@
         "outDir": "./dist", //Esto saca los compilados en la carpeta de dist
         "rootDir": "./src", // Esto indica la ocmpilacion de los archivos de src
         "lib": ["ESNext"], //Versión de javascript a compilar
+        "target": "esnext",
+        "moduleResolution": "nodenext",
+        "module": "nodenext",
         "strict": false, //Permitir "anys" (false = permitir anys)?
         "sourceMap": true,
         "esModuleInterop": true,
