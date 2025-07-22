@@ -25,3 +25,17 @@ server.listen(post, () => {
 // Los decoradores son funciones que se aplican a clases o elementos de clases
 // (métodos, propiedades, etc.) para añadirles comportamiento adicional sin
 // modificar su definición original.
+
+//!Testing: 
+//**
+// ?Para testear en este caso se usarà supertest y jest, se instala con:
+// npm i -D supertest @types/supertest jest @types/jest ts-jest
+// 
+// ?Despuès de instalar ejecutar:
+// npx ts-jest config:init 
+// 
+// *Jest puede leer archivos de 3 formas:
+// - Archivos con la extensiòn .test.js
+// - Archivos con la extensiòn .spec.js
+// - Archivos dentro de la carpeta __tests__ (La mejor opciòn)
+// */
