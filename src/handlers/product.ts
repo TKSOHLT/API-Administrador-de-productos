@@ -72,7 +72,8 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     //Lo previo (omitiendo la validación) tambien se puede con:
     const product = await Product.create(req.body);
-    res.json({ data: product });
+    //!NOTA: siempre que se trabaje con la creación, se debe retornar un codigo 201
+    res.status(201).json({ data: product });
   } catch (error) {
     console.log(error);
   }
