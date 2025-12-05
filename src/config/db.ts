@@ -22,7 +22,7 @@ dotenv.config() // Con esto se manda a llamar a las variables de entorno
 
 //? Pero lo recomendado siempre será el menor codigo, por lo que vamos a forzar el ssl con ?ssl=true
 const db = new Sequelize(process.env.DATABASE_URL!, {
-    models: [__dirname + '/../models/**/*.ts'],
+    models: [__dirname + '/../models/**/*'],
     logging: false //Con esto no evnia nada a la consola
 })
 
