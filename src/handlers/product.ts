@@ -4,35 +4,29 @@ import Product from "../models/Product.model";
 //!Pregunta de entrevista:
 
 export const getProducts = async (req: Request, res: Response) => {
-    try{
-        const products = await Product.findAll({
-            order: [
-                ['price', 'DESC']
-            ],
-            attributes: {exclude: ['createdAt', 'updatedAt', 'availability']} //Con esto excluimos estas columnas para la consulta
-        })
-        res.json({data: products}); //Usualmente colocamos data por el axios
-    }catch(error){
-        console.log(error)
-    }
+    const products = await Product.findAll({
+        order: [
+            ['id', 'DESC']
+        ],
+        attributes: {exclude: ['createdAt', 'updatedAt']} //Con esto excluimos estas columnas para la consulta
+    })
+    res.json({data: products}); //Usualmente colocamos data por el axios
 }
 
 export const getProductById = async (req: Request, res: Response) => {
-    try{
-        //Para obtener los query params es con req.params.variable
-        const { id } = req.params // hacemos destructuring
-        const product = Product.findByPk(id);
+    //Para obtener los query params es con req.params.variable
+    const { id } = req.params // hacemos destructuring
+    const product = await Product.findByPk(id);
 
-        if(!product){
-            return res.status(404).json({
-                error: "Producto no encontrado"
-            })
-        }
-
-        res.json(product)
-    }catch(error){
-        console.log(error)
+    if(!product){
+        return res.status(404).json({
+            error: "Producto no encontrado"
+        })
     }
+
+    res.json({
+        data: product
+    })
 }
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -69,14 +63,10 @@ export const createProduct = async (req: Request, res: Response) => {
   //   }
   //!La validación tambien puede ir en el controlador (router)
 
-  try {
     //Lo previo (omitiendo la validación) tambien se puede con:
     const product = await Product.create(req.body);
     //!NOTA: siempre que se trabaje con la creación, se debe retornar un codigo 201
     res.status(201).json({ data: product });
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 //***************************************************** */
@@ -146,8 +136,6 @@ export const updateAvailability = async (req: Request, res: Response) => {
     // await product.update(req.body); //?UPDATE: Hace modificaciones parciales, esto protege a nuestros demas campos, si lo hacemos de la manera siguiente:
     product.availability = !product.dataValues.availability //Esto es un toggle de availability, se obtienen los datos de la bd y se niegan para asignarse
     await product.save()
-
-    console.log(product.dataValues)
 
     res.json({data: product})
 } 

@@ -25,23 +25,29 @@
 //!         "test": "jest --detectOpenHandles"
 //!     }
 
-import request from "supertest";
-import server from "../server";
+import { connectDB } from "../server";
+import db from "../config/db";
 
-describe("GET /api", () => {
-  it("should send back a json response", async () => {
-    const res = await request(server).get("/api");
+/**
+ * Mock
+ * 
+ * Un mock es una técnica para las pruebas para simular el comportamiento de ciertos módulos, funciones u objetos
+ * en este entorno.
+ * 
+ */
 
-    //!Las pruebas deben ir acompañada de lo que debe hacer tanto de lo que no debe hacer
+jest.mock('../config/db')
 
-    //Lo que debe hacer:
-    expect(res.status).toBe(200); // Validar que la respuesta este OK
-    expect(res.headers["content-type"]).toMatch(/json/); //Validar que los datos enviados sea un json
-    expect(res.body.msg).toBe("Desde API");
-    
-    //Lo que no debe hacer:
-    expect(res.status).not.toBe(404)
-    expect(res.body.msg).not.toBe('desde api')
-    console.log(res.body.msg); //Permite acceder a todos los vaores de la respuesta
-  });
-});
+describe('connectDB', () => {
+  it('should handle database connection error', async () => {
+    jest.spyOn(db, 'authenticate').mockRejectedValueOnce(new Error('Hubo un error al conectar a la BD'))
+    const consoleSpy = jest.spyOn(console, 'log')
+
+    await connectDB()
+
+    //Se asegura de que un mock fue llamado con ciertos argumentos
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Hubo un error al conectar a la BD")
+    )
+  })
+})
